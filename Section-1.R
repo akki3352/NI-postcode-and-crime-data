@@ -3,8 +3,8 @@ library(RCurl)
 
 
 # Loadind data
-x <- getURL("https://raw.githubusercontent.com/akki3352/NI-postcode-and-crime-data/master/NIPostcodes.csv")
-NIPostcodes <- read.csv(text = x, header = FALSE)
+download.file("https://raw.githubusercontent.com/akki3352/NI-postcode-and-crime-data/master/NIPostcodes.csv", destfile = "NIPOstcodes.csv")
+NIPostcodes <- read.csv("NIPOstcodes.csv")
 
 
 #Count the total number of rows in NIPostcodes dataset.
