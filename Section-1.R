@@ -3,7 +3,7 @@ library(RCurl)
 
 
 # Loadind data
-x <- getURL("https://raw.githubusercontent.com/akki3352/CA-2/master/NIPostcodes.csv")
+x <- getURL("https://raw.githubusercontent.com/akki3352/NI-postcode-and-crime-data/master/NIPostcodes.csv")
 NIPostcodes <- read.csv(text = x, header = FALSE)
 
 
@@ -29,7 +29,7 @@ str(NIPostcodes)
 
 #Move the primary key identifier to the start of the NIPostcodes dataset.
 # and population_rank attribute near to County attribute.
-NIPostcodes <- NIPostcodes[c(15, 1:11, 16, 12:14)]
+NIPostcodes <- NIPostcodes[c(15, 1:14)]
 head(NIPostcodes, 3)
 str(NIPostcodes)
 
