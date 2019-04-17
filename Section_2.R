@@ -101,7 +101,7 @@ CleanNIPostcodeData$Primary.THoroughfare <- trimws(CleanNIPostcodeData$Primary.T
 # Create random_crime_sample function that 
 # takes input each location attribute and
 # find suitable postcode from CleanNIPostcodeData
-
+ 
 find_a_postcode <- function(x){
   
   dat <- CleanNIPostcodeData[CleanNIPostcodeData$Primary.THoroughfare == x, "Postcode"]
