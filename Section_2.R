@@ -91,9 +91,9 @@ random_crime_sample[, "Location"] <- toupper(random_crime_sample[, "Location"])
 random_crime_sample$Location <- trimws(random_crime_sample$Location)
 
 #Load CleanNIPostcodeData using getURL() function
-set_config( config( ssl.verifypeer = 0L ) )
-x <- getURL("https://media.githubusercontent.com/media/akki3352/NI-postcode-and-crime-data/master/CleanNIPostcodeData.csv")
-CleanNIPostcodeData <- read.csv(text = x)
+
+download.file("https://media.githubusercontent.com/media/amul-upadhyay/CA-2/master/CleanNIPostcodeData.csv", destfile = "CleanNIPostcodeData.csv")
+CleanNIPostcodeData <- read.csv(file = "CleanNIPostcodeData.csv")
 head(CleanNIPostcodeData, 5)
 str(CleanNIPostcodeData)
 CleanNIPostcodeData$Primary.THoroughfare <- trimws(CleanNIPostcodeData$Primary.THoroughfare)
@@ -147,20 +147,36 @@ head(chart_data)
 # Sort the chart_data data frame by crime.type
 chart_data$Crime.type <- sort(chart_data$Crime.type)
 head(chart_data)
+unique(chart_data$Crime.type)
 str(chart_data)
 
-# here we gets the colors for unique crime type
-palette <- RColorBrewer::brewer.pal(length(unique(chart_data$Crime.type)),name = 'Set1')
 
+# here we gets the colors for unique crime type
 # Lets create a frequency table for types of Crime.
+chart_data$Crime.type <- strwrap(chart_data$Crime.type, width = 5)
 counts <- table(chart_data$Crime.type)
 print(counts)
 
+
 # Create a bar plot of the crime type from the chart_data data frame. 
-barplot(counts,
-        xlab='Offence Type',ylab='Crime Rate',
+
+install.packages("magrittr")
+install.packages("dplyr")
+install.packages("stringr")
+library(dplyr)
+library(stringr) # for the function str_wrap()
+library(magrittr) # just for the pipe %>%, not strictly necessary
+names(counts) <- c("Anti-social behaviour", "Bicycle theft", "Burglary", "Criminal damage and arson"
+                  , "Drugs", "Other theft", "Possession of weapons", "Robbery", "Shoplifting",
+                  "Theft from the person", "Vehicle crime", "Violence and sexual offences"
+                  , "Other crime", "Public order")
+
+
+par(mai=c(1,2,1,1)) # make space for the label
+
+barplot(counts, border = NA, family="Arial", horiz = T, xlim = range(0,400), las = 2,
+        xlab='Crime Rate',
         main='Crime Statistics',
         col=counts,col.main='Blue')
-
 
  
